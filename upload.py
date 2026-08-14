@@ -9,7 +9,7 @@ from datetime import datetime
 # ==============================================================================
 # CONFIGURAÇÕES PADRÃO
 # ==============================================================================
-DEFAULT_PORT      = "COM6" 
+DEFAULT_PORT      = "/dev/ttyUSB1" 
 DEFAULT_BAUD      = 921600
 DEFAULT_FILENAME  = "app.bin"
 

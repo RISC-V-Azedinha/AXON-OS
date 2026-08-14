@@ -1,0 +1,108 @@
+site_name: AXON-OS
+site_description: Documentação do AXON RTOS — um sistema operacional de tempo real para RISC-V (RV32I_Zicsr), com suporte a QEMU e a um SoC em FPGA com acelerador NPU.
+site_author: nyfeu
+repo_name: AXON-OS
+repo_url: https://github.com/nyfeu/AXON-OS
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; AXON-OS
+
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Mudar para modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Mudar para modo claro
+  icon:
+    logo: material/chip
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      title: Nesta página
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search:
+      lang: pt
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/nyfeu/AXON-OS
+
+nav:
+  - Início: index.md
+  - Considerações: consideracoes.md
+  - Guias:
+      - guias/index.md
+      - Instalação do ambiente: guias/instalacao.md
+      - Build e execução: guias/build-e-execucao.md
+      - Upload para a FPGA: guias/upload-fpga.md
+      - Usando o shell: guias/shell.md
+  - Arquitetura:
+      - arquitetura/index.md
+      - Visão geral: arquitetura/visao-geral.md
+      - Boot: arquitetura/boot.md
+      - Escalonador de tarefas: arquitetura/escalonador.md
+      - Gerenciamento de memória: arquitetura/memoria.md
+      - Sistema de arquivos: arquitetura/sistema-arquivos.md
+      - Interrupções e syscalls: arquitetura/interrupcoes-syscalls.md
+      - HAL e drivers: arquitetura/hal-drivers.md
+  - Referência:
+      - referencia/index.md
+      - Estrutura do projeto: referencia/estrutura-projeto.md
+      - Mapa de memória (MMIO): referencia/mapa-memoria.md
+      - Tabela de syscalls: referencia/api-syscalls.md
+      - Comandos do shell: referencia/comandos-shell.md

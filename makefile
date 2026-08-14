@@ -1,8 +1,8 @@
 # ====================================================================
 # CONFIGURAÇÕES DA TOOLCHAIN
 # ====================================================================
-CC = riscv32-unknown-elf-gcc
-OBJCOPY = riscv32-unknown-elf-objcopy
+CC = riscv64-unknown-elf-gcc
+OBJCOPY = riscv64-unknown-elf-objcopy
 
 # Flags Base (Comuns)
 # -march=rv32i_zicsr: Arquitetura Base
