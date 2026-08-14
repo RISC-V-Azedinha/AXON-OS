@@ -12,10 +12,6 @@
 !!! info "Para quem é esta documentação"
     Esta documentação cobre a arquitetura interna do kernel, como compilar e executar o AXON-OS, como usar o shell e como estender o sistema com novos drivers, comandos ou syscalls.
 
-## Por que "AXON"?
-
-O nome faz referência ao axônio, a fibra nervosa que transmite impulsos elétricos entre neurônios — uma alusão à NPU (Neural Processing Unit) que o SoC-alvo do projeto integra ao lado da CPU RISC-V, e ao papel do kernel como o "sistema nervoso central" que orquestra tarefas, memória e periféricos.
-
 ## Características principais
 
 <div class="grid cards" markdown>
@@ -55,4 +51,4 @@ O nome faz referência ao axônio, a fibra nervosa que transmite impulsos elétr
 
 ## Estado do projeto
 
-O AXON-OS está na versão `v0.1.0-alpha`. É um projeto acadêmico em desenvolvimento ativo — algumas simplificações são intencionais (ex.: alocação estática de tarefas, ausência de modo usuário/MMU) e estão documentadas ao longo do texto onde relevante.
+É um projeto acadêmico em desenvolvimento ativo — algumas simplificações são intencionais (ex.: alocação estática de tarefas, ausência de modo usuário/MMU) e estão documentadas ao longo do texto onde relevante.

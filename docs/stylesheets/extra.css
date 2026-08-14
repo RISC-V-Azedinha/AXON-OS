@@ -1,0 +1,141 @@
+/* ==========================================================================
+   AXON-OS — refinamentos visuais sobre o Material for MkDocs
+   Usa exclusivamente as custom properties do próprio tema (--md-*), então
+   tudo aqui se adapta automaticamente entre os modos claro e escuro.
+   ========================================================================== */
+
+/* --- Tipografia geral ----------------------------------------------------- */
+
+.md-typeset h1 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.3em;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+}
+
+.md-typeset code {
+  font-size: 0.85em;
+  border-radius: 0.25em;
+}
+
+/* --- Hero da página inicial ------------------------------------------------
+   Alveja apenas o primeiro H1 de qualquer página (na prática, só a home tem
+   esse padrão de "título + parágrafo em negrito logo abaixo"). */
+
+.md-content__inner > h1:first-child {
+  font-size: 2.2rem;
+  margin-bottom: 0.3em;
+  background: linear-gradient(
+    120deg,
+    var(--md-primary-fg-color) 0%,
+    var(--md-accent-fg-color) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-md-color-scheme="slate"] .md-content__inner > h1:first-child {
+  background: linear-gradient(120deg, #e6f8fc 0%, var(--md-accent-fg-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* --- Cards (grid de "Características principais") ------------------------- */
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.6rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  transform: translateY(-2px);
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.md-typeset .grid.cards > ul > li > :first-child {
+  color: var(--md-accent-fg-color);
+}
+
+/* --- Blocos de código -------------------------------------------------- */
+
+.md-typeset pre > code {
+  border-radius: 0.4rem;
+}
+
+.md-typeset .highlight {
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+
+/* --- Tabelas ------------------------------------------------------------ */
+
+.md-typeset table:not([class]) {
+  border-radius: 0.4rem;
+  overflow: hidden;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+}
+
+/* --- Admonitions ---------------------------------------------------------- */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.4rem;
+  border-width: 0 0 0 0.2rem;
+}
+
+/* --- Mermaid --------------------------------------------------------------- */
+
+.md-typeset .mermaid {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+/* --- Links de corpo de texto --------------------------------------------- */
+
+.md-typeset a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+/* --- Barra de rolagem (WebKit) -------------------------------------------- */
+
+.md-sidebar__scrollwrap::-webkit-scrollbar,
+.md-typeset pre::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar-thumb,
+.md-typeset pre::-webkit-scrollbar-thumb {
+  background-color: var(--md-default-fg-color--lighter);
+  border-radius: 0.4rem;
+}
+
+.md-sidebar__scrollwrap::-webkit-scrollbar-thumb:hover,
+.md-typeset pre::-webkit-scrollbar-thumb:hover {
+  background-color: var(--md-accent-fg-color);
+}
+
+/* --- Logo no cabeçalho: leve realce ---------------------------------------- */
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.4rem;
+  width: 1.4rem;
+}
