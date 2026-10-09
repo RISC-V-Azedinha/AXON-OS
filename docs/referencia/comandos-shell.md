@@ -182,6 +182,33 @@ Abre o [mini-editor de texto embutido](../guias/shell.md#o-editor-edit) (`Ctrl+W
 edit notas.txt
 ```
 
+## GPIO
+
+Só na FPGA (no QEMU os comandos funcionam sobre um estado virtual). Portas: `ja`, `jb`, `jc`, `jd` (Pmods, 8 pinos), `led` (LD0..LD15), `sw` (chaves) e `btn` (bit 0 = BTNU, 1 = BTND, 2 = BTNL, 3 = BTNR). Nos Pmods, o pino *i* é o pino *i* do conector na ordem 1, 2, 3, 4, 7, 8, 9, 10.
+
+### `gpio [<porta> [<pino> [in|out|0|1|t]]]`
+
+Sem argumentos, lista a direção e a entrada de todas as portas. Com a porta, mostra só ela; com o pino, lê o pino; com uma ação, configura a direção (`in`/`out`), escreve (`0`/`1`) ou inverte (`t`) o pino.
+
+```
+gpio
+gpio ja 0 out
+gpio ja 0 1
+gpio sw 3
+```
+
+### `seg <valor>`
+
+Mostra um número nos displays de 7 segmentos: decimal (`seg 1234`), hexadecimal (`seg x1F`) ou apaga (`seg off`).
+
+### `rgb <0|1> <r> <g> <b>`
+
+Acende o LED RGB LD16 (`0`) ou LD17 (`1`) com o brilho 0..255 de cada cor (255 é 1/8 do LED ligado direto).
+
+```
+rgb 0 0 255 0
+```
+
 ## Resumo
 
 | Categoria | Comandos |
@@ -190,3 +217,4 @@ edit notas.txt
 | Processos | `ps`, `stop`, `resume` |
 | Memória | `heap`, `alloc`, `free`, `defrag`, `peek`, `poke`, `memtest` |
 | Arquivos | `ls`, `touch`, `rm`, `cat`, `write`, `edit` |
+| GPIO | `gpio`, `seg`, `rgb` |

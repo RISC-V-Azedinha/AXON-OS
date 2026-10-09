@@ -21,6 +21,11 @@ void cmd_alloc(const char *args);
 void cmd_free(const char *args);
 void cmd_defrag(const char *args);
 
+// GPIO
+void cmd_gpio(const char *args);
+void cmd_seg(const char *args);
+void cmd_rgb(const char *args);
+
 // Sistema de arquivos
 void cmd_ls(const char *args);
 void cmd_touch(const char *args);

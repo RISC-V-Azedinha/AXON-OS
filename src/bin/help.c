@@ -31,6 +31,11 @@ void cmd_help(const char *args) {
     safe_puts("  " SH_CYAN "poke      " SH_RESET " Write memory (poke <addr> <val>)\n");
     safe_puts("  " SH_CYAN "memtest   " SH_RESET " Simple malloc test\n");
 
+    // GPIO
+    safe_puts("  " SH_CYAN "gpio      " SH_RESET " Pins (gpio <port> [<pin> in|out|0|1|t])\n");
+    safe_puts("  " SH_CYAN "seg       " SH_RESET " 7-seg display (seg <dec> | seg x<hex> | seg off)\n");
+    safe_puts("  " SH_CYAN "rgb       " SH_RESET " RGB LED (rgb <0|1> <r> <g> <b>)\n");
+
     safe_puts("\n");
 
 }

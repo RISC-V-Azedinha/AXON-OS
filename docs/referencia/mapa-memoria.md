@@ -46,6 +46,27 @@ Endereços físicos extraídos diretamente de `src/drivers/qemu/memory_map.h` e 
     | `1 << 0` | `UART_CMD_RX_POP` | Comando: avança a FIFO de recepção |
     | `1 << 2` | `UART_CMD_RX_FLUSH` | Comando: limpa a FIFO de recepção |
 
+## GPIO (só FPGA)
+
+O GPIO segue o modelo de microcontrolador: cada porta ocupa 64 bytes e tem os mesmos registradores.
+
+| Offset | Bloco |
+|---|---|
+| `0x000`, `0x040`, `0x080`, `0x0C0` | Portas JA, JB, JC, JD (Pmods) |
+| `0x100` | Porta LED (LD0..LD15) |
+| `0x140` | Porta SW (chaves) |
+| `0x180` | Porta BTN (BTNU, BTND, BTNL, BTNR) |
+| `0x200` | Displays de 7 segmentos (`CTRL`, `HEX`, `RAW_LO`, `RAW_HI`, `DP`, `EN`) |
+| `0x280` | LEDs RGB (`RGB0` = LD16, `RGB1` = LD17, `0x00RRGGBB`) |
+
+| Offset na porta | Registrador | Descrição |
+|---|---|---|
+| `0x00` | `IN` | Estado dos pinos |
+| `0x04` | `OUT` | Valor de saída |
+| `0x08` | `DIR` | 1 = saída, 0 = entrada |
+| `0x0C` / `0x10` / `0x14` | `OUTSET` / `OUTCLR` / `OUTTGL` | Liga / desliga / inverte os pinos marcados |
+| `0x18` / `0x1C` / `0x20` | `IE` / `IES` / `IFG` | Interrupção: habilita, borda (0 = subida) e flags (escrever 1 limpa) |
+
 ## CLINT (Core Local Interruptor)
 
 | Registrador | QEMU (offset de `CLINT_BASE = 0x02000000`) | FPGA (offset de `CLINT_BASE_ADDR = 0x50000000`) |

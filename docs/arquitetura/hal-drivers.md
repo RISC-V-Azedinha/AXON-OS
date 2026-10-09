@@ -21,7 +21,7 @@ O alvo FPGA também define `-DPLATFORM_FPGA`, que o código pode usar para condi
 | `hal_timer.h` | Temporização, ciclos, interrupção periódica | QEMU e FPGA |
 | `hal_irq.h` | Controle de interrupções da CPU (`mstatus`, `mie`, `mtvec`) + dispatcher de PLIC | QEMU e FPGA (a parte CSR é comum a ambos, por ser inline) |
 | `hal_plic.h` | Controlador de interrupções externas (PLIC) | QEMU e FPGA |
-| `hal_gpio.h` | LEDs e switches | QEMU (stub) e FPGA |
+| `hal_gpio.h` | Portas (direção + pino): Pmods, LEDs, chaves e botões; displays de 7 segmentos; LEDs RGB | QEMU (estado virtual) e FPGA |
 | `hal_dma.h` | Cópia de memória assistida por hardware | QEMU (stub) e FPGA |
 | `hal_vga.h` | Framebuffer de vídeo 320×240 | QEMU (stub) e FPGA |
 | `hal_npu.h` | Acelerador de rede neural (NPU) | QEMU (stub) e FPGA |

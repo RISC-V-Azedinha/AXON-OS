@@ -28,6 +28,34 @@
 #define GPIO_BASE           0x20000000
 
 /* ============================================================================================================== */
+/* GPIO: PORTAS (DIREÇÃO + PINO), DISPLAYS DE 7 SEGMENTOS E LEDs RGB                                              */
+/* ============================================================================================================== */
+
+#define GPIO_PORT_STRIDE        0x40
+#define GPIO_PORT_BASE(p)       (GPIO_BASE_ADDR + GPIO_PORT_STRIDE * (p))
+#define GPIO_REG_IN             0x00    // RO: estado dos pinos
+#define GPIO_REG_OUT            0x04    // RW: valor de saída
+#define GPIO_REG_DIR            0x08    // RW: 1 = saída, 0 = entrada
+#define GPIO_REG_OUTSET         0x0C    // WO: liga os pinos marcados
+#define GPIO_REG_OUTCLR         0x10    // WO: desliga os pinos marcados
+#define GPIO_REG_OUTTGL         0x14    // WO: inverte os pinos marcados
+#define GPIO_REG_IE             0x18    // RW: habilita a interrupção do pino
+#define GPIO_REG_IES            0x1C    // RW: borda da interrupção (0 = subida, 1 = descida)
+#define GPIO_REG_IFG            0x20    // RW: flags de interrupção (escrever 1 limpa)
+#define GPIO_REG(p, r)          MMIO32(GPIO_PORT_BASE(p) + (r))
+
+#define SEG7_BASE_ADDR          (GPIO_BASE_ADDR + 0x200)
+#define SEG7_REG_CTRL           MMIO32(SEG7_BASE_ADDR + 0x00)
+#define SEG7_REG_HEX            MMIO32(SEG7_BASE_ADDR + 0x04)
+#define SEG7_REG_RAW_LO         MMIO32(SEG7_BASE_ADDR + 0x08)
+#define SEG7_REG_RAW_HI         MMIO32(SEG7_BASE_ADDR + 0x0C)
+#define SEG7_REG_DP             MMIO32(SEG7_BASE_ADDR + 0x10)
+#define SEG7_REG_EN             MMIO32(SEG7_BASE_ADDR + 0x14)
+
+#define RGB_BASE_ADDR           (GPIO_BASE_ADDR + 0x280)
+#define RGB_REG(n)              MMIO32(RGB_BASE_ADDR + 4 * (n))
+
+/* ============================================================================================================== */
 /* UART DEFINITIONS                                                                                               */
 /* ============================================================================================================== */
 

@@ -32,6 +32,7 @@ Para a lista completa de comandos com sintaxe e exemplos, veja [Comandos do shel
 - **Processos**: `ps`, `stop`, `resume`
 - **Memória**: `heap`, `alloc`, `free`, `defrag`, `peek`, `poke`, `memtest`
 - **Arquivos**: `ls`, `touch`, `rm`, `cat`, `write`, `edit`
+- **GPIO**: `gpio`, `seg`, `rgb`
 
 ## O editor `edit`
 

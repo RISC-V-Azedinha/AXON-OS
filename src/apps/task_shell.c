@@ -110,7 +110,10 @@ static const shell_cmd_t shell_commands[] = {
     {"rm",      cmd_rm},
     {"cat",     cmd_cat},
     {"write",   cmd_write_file},
-    {"edit",    cmd_edit}
+    {"edit",    cmd_edit},
+    {"gpio",    cmd_gpio},
+    {"seg",     cmd_seg},
+    {"rgb",     cmd_rgb}
 };
 
 #define CMD_COUNT (sizeof(shell_commands) / sizeof(shell_cmd_t))

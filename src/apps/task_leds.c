@@ -6,7 +6,7 @@
 // TASK: LEDS 
 // ======================================================================================
 
-// Faz contagem binária nos LEDs e mostra status no shell
+// Faz contagem binária nos LEDs (e em decimal nos displays) e mostra status no shell
 
 void task_leds(void) {
     uint32_t counter = 0;
@@ -14,7 +14,9 @@ void task_leds(void) {
     hal_gpio_init();
 
     while (1) {
-        hal_gpio_write(counter);
+        hal_leds_write(counter);
+        hal_seg7_write_dec(counter);
+        hal_rgb_set(0, 0, (counter % 2) ? 200 : 0, 0);               // LD16 pisca em verde (heartbeat)
         
         int led_on = counter % 2; 
         

@@ -39,6 +39,7 @@ AXON-OS/
 │   │   └── task_shell.c
 │   ├── bin/                   # Implementação dos comandos de shell
 │   │   ├── clear.c
+│   │   ├── gpio_cmds.c        # gpio, seg, rgb
 │   │   ├── help.c
 │   │   ├── mem_cmds.c         # heap, peek, poke, free, defrag
 │   │   ├── memtest.c
