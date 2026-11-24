@@ -119,4 +119,4 @@ sequenceDiagram
 
 ## Acesso via shell e syscalls
 
-O sistema de arquivos é exposto ao espaço de tarefas por seis syscalls (`SYS_FS_CREATE`, `SYS_FS_WRITE`, `SYS_FS_READ`, `SYS_FS_LIST`, `SYS_FS_DELETE`, `SYS_FS_FORMAT` — veja [tabela completa](../referencia/api-syscalls.md)), e por sua vez pelos comandos de shell `touch`, `write`, `cat`, `ls`, `rm` e pelo editor `edit` (veja [Usando o shell](../guias/shell.md#o-editor-edit)).
+O sistema de arquivos é exposto ao espaço de tarefas por seis syscalls (`SYS_FS_CREATE`, `SYS_FS_WRITE`, `SYS_FS_READ`, `SYS_FS_LIST`, `SYS_FS_DELETE`, `SYS_FS_FORMAT` — veja [tabela completa](interrupcoes-syscalls.md#chamadas-de-sistema)), e por sua vez pelos comandos de shell `touch`, `write`, `cat`, `ls`, `rm` e pelo editor `edit` (veja [Shell](../shell.md#o-editor-edit)).

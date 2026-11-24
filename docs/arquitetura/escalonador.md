@@ -1,4 +1,4 @@
-# Escalonador de tarefas
+# Tarefas e escalonamento
 
 O escalonador (`src/kernel/scheduler.c` + `include/kernel/task.h`) implementa um modelo de **multitarefa cooperativa-preemptiva por prioridades**, com um pool estático de no máximo `MAX_TASKS = 4` tarefas.
 
@@ -98,11 +98,11 @@ flowchart TD
 
 ### Fase 3 — Marcar a troca
 
-`schedule()` **não troca a pilha** — ele só atualiza as variáveis globais `current_task` e `next_task`, e ajusta os estados (`READY` → `RUNNING` da nova; `RUNNING` → `READY` da antiga, se forem diferentes). A troca de contexto de fato é feita pelo Assembly em `trap.s`, na volta do trap handler — veja [Interrupções e syscalls](interrupcoes-syscalls.md#o-trap-handler-central-trap_handler-em-mainc).
+`schedule()` **não troca a pilha** — ele só atualiza as variáveis globais `current_task` e `next_task`, e ajusta os estados (`READY` → `RUNNING` da nova; `RUNNING` → `READY` da antiga, se forem diferentes). A troca de contexto de fato é feita pelo Assembly em `trap.s`, na volta do trap handler — veja [Interrupções e chamadas de sistema](interrupcoes-syscalls.md#o-trap-handler-central-trap_handler-em-mainc).
 
 ## `sleep`, `suspend` e `resume`
 
-- **`scheduler_sleep(ms)`**: converte milissegundos em ciclos de clock usando `hal_timer_get_freq()` (a frequência muda entre QEMU e FPGA — veja [HAL e drivers](hal-drivers.md)), grava `wake_time = agora + ciclos`, muda o estado para `TASK_BLOCKED` e chama `schedule()` imediatamente — sem esperar o próximo tick do timer.
+- **`scheduler_sleep(ms)`**: converte milissegundos em ciclos de clock usando `hal_timer_get_freq()` (a frequência muda entre QEMU e FPGA — veja [Plataformas e drivers](plataformas-drivers.md)), grava `wake_time = agora + ciclos`, muda o estado para `TASK_BLOCKED` e chama `schedule()` imediatamente — sem esperar o próximo tick do timer.
 - **`scheduler_suspend(pid)` / `scheduler_resume(pid)`**: pausam/retomam uma tarefa manualmente (usadas pelos comandos de shell `stop`/`resume`). A tarefa `Idle` (prioridade 0) não pode ser suspensa — é uma checagem de segurança, já que o sistema sempre precisa de um fallback executável.
 
 ## Mutexes
@@ -116,7 +116,7 @@ typedef struct {
 } mutex_t;
 ```
 
-A lógica de lock/unlock roda **dentro do kernel**, disparada pelas syscalls `SYS_LOCK`/`SYS_UNLOCK` (veja [Interrupções e syscalls](interrupcoes-syscalls.md#tabela-de-syscalls)) — o teste-e-ajuste do campo `locked` acontece de forma atômica em relação às tarefas porque o próprio trap handler não é preemptado por outra tarefa (ele roda até o fim antes de qualquer troca de contexto). O padrão de uso típico, usado por `safe_puts()`:
+A lógica de lock/unlock roda **dentro do kernel**, disparada pelas syscalls `SYS_LOCK`/`SYS_UNLOCK` (veja [Interrupções e chamadas de sistema](interrupcoes-syscalls.md#chamadas-de-sistema)) — o teste-e-ajuste do campo `locked` acontece de forma atômica em relação às tarefas porque o próprio trap handler não é preemptado por outra tarefa (ele roda até o fim antes de qualquer troca de contexto). O padrão de uso típico, usado por `safe_puts()`:
 
 ```c
 while (sys_mutex_lock(&uart_mutex) == 0) sys_yield();
@@ -128,4 +128,4 @@ Apenas o dono (`owner_tid`) pode destravar um mutex — uma verificação simple
 
 ## A troca de contexto em Assembly
 
-O mecanismo completo de salvar/restaurar registradores está descrito em [Interrupções e syscalls → Troca de contexto](interrupcoes-syscalls.md#troca-de-contexto-em-traps), já que ele é parte do mesmo trap handler que atende timer, syscalls e interrupções externas.
+O mecanismo completo de salvar/restaurar registradores está descrito em [Interrupções e chamadas de sistema → Troca de contexto](interrupcoes-syscalls.md#troca-de-contexto-em-traps), já que ele é parte do mesmo trap handler que atende timer, syscalls e interrupções externas.

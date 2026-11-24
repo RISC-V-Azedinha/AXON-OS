@@ -1,8 +1,10 @@
-# Estrutura do projeto
+# Estrutura do código-fonte
+
+## Árvore de diretórios
 
 ```text
 AXON-OS/
-├── makefile                  # Build para QEMU e FPGA (veja Guias → Build e execução)
+├── makefile                  # Build para QEMU e FPGA (veja Primeiros passos)
 ├── upload.py                 # Gravador/monitor serial para a FPGA
 │
 ├── include/                  # Todos os headers (.h) do projeto
@@ -75,6 +77,20 @@ AXON-OS/
 └── build/                      # Gerado pelo make — não versionado (.gitignore)
     └── obj/{qemu,fpga}/...      # Objetos espelhados por plataforma
 ```
+
+## Onde cada assunto está implementado
+| Assunto | Arquivos principais |
+|---|---|
+| Boot / entrada | `src/bsp/start.s`, `src/bsp/link.ld`, `src/bsp/link_fpga.ld` |
+| Trap handler central | `src/kernel/main.c` (`trap_handler`), `src/kernel/trap.s` |
+| Escalonador | `src/kernel/scheduler.c`, `include/kernel/task.h` |
+| Memória (heap) | `src/kernel/mm.c`, `include/kernel/mm.h` |
+| Sistema de arquivos | `src/kernel/fs.c`, `include/kernel/fs.h` |
+| Syscalls | `include/sys/syscall.h`, `switch` em `main.c` |
+| Interrupções (PLIC) | `src/kernel/irq_dispatch.c`, `include/hal/hal_irq.h`, `include/hal/hal_plic.h` |
+| HAL | `include/hal/*.h`, `src/drivers/{qemu,fpga}/*.c` |
+| Tarefas de usuário | `src/apps/*.c` |
+| Comandos do shell | `src/bin/*.c`, `src/kernel/file_cmds.c` |
 
 ## Convenção de nomes
 

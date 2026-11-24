@@ -1,0 +1,44 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage[sfdefault]{plex-sans}
+\usepackage{plex-mono}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\definecolor{azul}{HTML}{1F5FA8}
+\definecolor{laranja}{HTML}{E07B1A}
+\definecolor{laranjaesc}{HTML}{A8550D}
+\definecolor{verde}{HTML}{2E8B57}
+\definecolor{vermelho}{HTML}{C0392B}
+\definecolor{marinho}{HTML}{14213D}
+\definecolor{fundo}{HTML}{FBFBF8}
+\definecolor{corpo}{HTML}{3A4555}
+\begin{document}
+\begin{tikzpicture}[>={Stealth[length=1.6mm]},
+          cam/.style={rounded corners=4pt,minimum width=8.4cm,inner sep=0pt},
+          bloco/.style={fill=white,line width=0.8pt,rounded corners=3pt,minimum width=1.85cm,
+                        minimum height=0.5cm,inner sep=1.5pt,align=center,font=\scriptsize\bfseries,text=corpo},
+          tit/.style={anchor=north west,font=\footnotesize\bfseries},
+          sub/.style={anchor=north east,font=\tiny,text=corpo},
+          sep/.style={dashed,gray!60},
+          rot/.style={fill=fundo,font=\tiny\bfseries,text=marinho,inner sep=2pt}]
+        \foreach \y/\cor/\t/\d/\a/\b/\e/\f in {
+            0/violet/Tarefas/{preempção por \emph{timer}; \texttt{yield}}/Shell/LEDs/Monitor/Idle,
+            -2.0/azul/Núcleo (modo de máquina)/{trata IRQs e \emph{syscalls}}/Escalonador/RamFS/Traps/Heap,
+            -4.0/verde/HAL e \emph{drivers}/{\texttt{qemu} ou \texttt{fpga}}/UART/Timer/PLIC/GPIO} {
+          \node[cam,fill=\cor!7,draw=\cor!60,minimum height=1.4cm,anchor=north] (c) at (0,\y) {};
+          \node[tit,text=\cor] at ([xshift=2.5mm,yshift=-1.8mm]c.north west) {\t};
+          \node[sub] at ([xshift=-2.5mm,yshift=-2.3mm]c.north east) {\d};
+          \foreach \txt [count=\k from 0] in {\a,\b,\e,\f}
+            \node[bloco,draw=\cor!70] at ({-3.15+\k*2.1},{\y-0.95}) {\txt};
+        }
+        \node[cam,fill=laranja!10,draw=laranja!70,minimum height=0.85cm,anchor=north,align=center] at (0,-6.0)
+          {\footnotesize\bfseries\color{laranjaesc}Plataforma RISC-V (RV32I + \emph{Zicsr})\\[-0.5mm]
+           {\scriptsize\normalfont\color{corpo}máquina \texttt{virt} do QEMU ou SoC na FPGA}};
+        \foreach \yb/\yt/\rotulo in {-1.4/-2.0/{\texttt{ecall}: 20 chamadas de sistema},
+                                     -3.4/-4.0/{chamadas à HAL}, -5.4/-6.0/{acesso aos periféricos}} {
+          \draw[sep] (-4.2,{(\yb+\yt)/2}) -- (4.2,{(\yb+\yt)/2});
+          \node[rot] at (0,{(\yb+\yt)/2}) {\rotulo};
+          \foreach \x in {-3.15,3.15} \draw[<->,thick,gray!70] (\x,\yb) -- (\x,\yt);
+        }
+\end{tikzpicture}
+\end{document}

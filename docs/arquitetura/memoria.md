@@ -4,7 +4,7 @@ O AXON-OS implementa seu próprio alocador dinâmico (`src/kernel/mm.c`), no est
 
 ## Onde vive o heap
 
-O heap ocupa toda a RAM que sobra depois do binário do kernel, calculada em `kernel_main()` (veja [Boot](boot.md#fase-1-inicializacao-de-hardware)):
+O heap ocupa toda a RAM que sobra depois do binário do kernel, calculada em `kernel_main()` (veja [Inicialização](visao-geral.md#fase-1-inicializacao-de-hardware)):
 
 ```c
 uint32_t heap_size = ram_total - kernel_size - 4096; // 4KB de margem para a pilha de boot

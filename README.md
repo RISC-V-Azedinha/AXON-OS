@@ -2,7 +2,7 @@
 
 **AXON RTOS** é um sistema operacional de tempo real (RTOS) educacional, escrito do zero em C e Assembly para a arquitetura **RISC-V de 32 bits** (`rv32i_zicsr`). O projeto nasceu como parte de um Trabalho de Conclusão de Curso (TCC) e serve, sobretudo, como **estudo de caso prático sobre interrupções** — em particular o **CLINT** (timer) e o **PLIC** (interrupções externas) — e sobre uma **arquitetura privilegiada básica** em Modo Máquina (M-mode) puro.
 
-Para o contexto completo do projeto — o que ele se propõe (e não se propõe) a ser, incluindo uma comparação com RTOS de produção como FreeRTOS e Zephyr — veja [Considerações](docs/consideracoes.md) na documentação.
+Para o contexto completo do projeto — o que ele se propõe (e não se propõe) a ser, incluindo uma comparação com RTOS de produção como FreeRTOS e Zephyr — veja [Objetivo e escopo](docs/index.md#objetivo-e-escopo) na documentação.
 
 ## Características
 
@@ -25,7 +25,7 @@ make
 make run
 ```
 
-Para compilar/gravar na FPGA e para instruções detalhadas de instalação, veja o guia [Build e execução](docs/guias/build-e-execucao.md) e [Upload para a FPGA](docs/guias/upload-fpga.md).
+Para compilar/gravar na FPGA e para instruções detalhadas de instalação, veja [Primeiros passos](docs/primeiros-passos.md).
 
 ## Documentação
 
@@ -42,10 +42,11 @@ Depois abra `http://127.0.0.1:8000`.
 
 ### Sumário
 
-- [Considerações](docs/consideracoes.md) — o que o projeto é (e não é), e comparação com FreeRTOS/Zephyr
-- **Guias**: [Instalação](docs/guias/instalacao.md) · [Build e execução](docs/guias/build-e-execucao.md) · [Upload para a FPGA](docs/guias/upload-fpga.md) · [Usando o shell](docs/guias/shell.md)
-- **Arquitetura**: [Visão geral](docs/arquitetura/visao-geral.md) · [Boot](docs/arquitetura/boot.md) · [Escalonador](docs/arquitetura/escalonador.md) · [Memória](docs/arquitetura/memoria.md) · [Sistema de arquivos](docs/arquitetura/sistema-arquivos.md) · [Interrupções e syscalls](docs/arquitetura/interrupcoes-syscalls.md) · [HAL e drivers](docs/arquitetura/hal-drivers.md)
-- **Referência**: [Estrutura do projeto](docs/referencia/estrutura-projeto.md) · [Mapa de memória](docs/referencia/mapa-memoria.md) · [Tabela de syscalls](docs/referencia/api-syscalls.md) · [Comandos do shell](docs/referencia/comandos-shell.md)
+- [Introdução](docs/index.md): objetivo, escopo e comparação com FreeRTOS e Zephyr
+- [Primeiros passos](docs/primeiros-passos.md): instalação, compilação e execução no QEMU e na FPGA
+- **Arquitetura do kernel:** [Visão geral e inicialização](docs/arquitetura/visao-geral.md) · [Tarefas e escalonamento](docs/arquitetura/escalonador.md) · [Interrupções e chamadas de sistema](docs/arquitetura/interrupcoes-syscalls.md) · [Gerenciamento de memória](docs/arquitetura/memoria.md) · [Sistema de arquivos](docs/arquitetura/sistema-arquivos.md) · [Plataformas e drivers](docs/arquitetura/plataformas-drivers.md)
+- [Shell](docs/shell.md): uso do terminal e referência de comandos
+- [Estrutura do código-fonte](docs/codigo-fonte.md): diretórios e convenções de nomes
 
 ## Estrutura do repositório
 
@@ -63,5 +64,5 @@ AXON-OS/
 └── upload.py        # Gravador/monitor serial para a FPGA
 ```
 
-Veja [Estrutura do projeto](docs/referencia/estrutura-projeto.md) para o detalhamento completo.
+Veja [Estrutura do código-fonte](docs/codigo-fonte.md) para o detalhamento completo.
 

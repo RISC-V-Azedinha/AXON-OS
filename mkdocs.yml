@@ -2,7 +2,7 @@ site_name: AXON-OS
 site_description: Documentação do AXON RTOS — um sistema operacional de tempo real para RISC-V (RV32I_Zicsr), com suporte a QEMU e a um SoC em FPGA com acelerador NPU.
 site_author: nyfeu
 repo_name: AXON-OS
-repo_url: https://github.com/nyfeu/AXON-OS
+repo_url: https://github.com/RISC-V-Azedinha/AXON-OS
 edit_uri: edit/main/docs/
 copyright: Copyright &copy; AXON-OS
 
@@ -12,20 +12,20 @@ theme:
   logo: assets/logo.svg
   favicon: assets/favicon.svg
   font:
-    text: Inter
-    code: JetBrains Mono
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: black
-      accent: cyan
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Mudar para modo escuro
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: black
-      accent: cyan
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Mudar para modo claro
@@ -40,11 +40,10 @@ theme:
   features:
     - navigation.instant
     - navigation.instant.progress
-    - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.tracking
     - navigation.sections
-    - navigation.indexes
     - navigation.top
     - navigation.footer
     - toc.follow
@@ -98,29 +97,17 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/nyfeu/AXON-OS
+      link: https://github.com/RISC-V-Azedinha/AXON-OS
 
 nav:
-  - Início: index.md
-  - Considerações: consideracoes.md
-  - Guias:
-      - guias/index.md
-      - Instalação do ambiente: guias/instalacao.md
-      - Build e execução: guias/build-e-execucao.md
-      - Upload para a FPGA: guias/upload-fpga.md
-      - Usando o shell: guias/shell.md
-  - Arquitetura:
-      - arquitetura/index.md
-      - Visão geral: arquitetura/visao-geral.md
-      - Boot: arquitetura/boot.md
-      - Escalonador de tarefas: arquitetura/escalonador.md
+  - Introdução: index.md
+  - Primeiros passos: primeiros-passos.md
+  - Arquitetura do kernel:
+      - Visão geral e inicialização: arquitetura/visao-geral.md
+      - Tarefas e escalonamento: arquitetura/escalonador.md
+      - Interrupções e chamadas de sistema: arquitetura/interrupcoes-syscalls.md
       - Gerenciamento de memória: arquitetura/memoria.md
       - Sistema de arquivos: arquitetura/sistema-arquivos.md
-      - Interrupções e syscalls: arquitetura/interrupcoes-syscalls.md
-      - HAL e drivers: arquitetura/hal-drivers.md
-  - Referência:
-      - referencia/index.md
-      - Estrutura do projeto: referencia/estrutura-projeto.md
-      - Mapa de memória (MMIO): referencia/mapa-memoria.md
-      - Tabela de syscalls: referencia/api-syscalls.md
-      - Comandos do shell: referencia/comandos-shell.md
+      - Plataformas e drivers: arquitetura/plataformas-drivers.md
+  - Shell: shell.md
+  - Estrutura do código-fonte: codigo-fonte.md
