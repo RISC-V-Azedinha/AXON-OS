@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../sistema-arquivos/">
+        <link rel="prev" href="../escalonador/">
       
       
-        <link rel="next" href="../hal-drivers/">
+        <link rel="next" href="../memoria/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Interrupções e syscalls - AXON-OS</title>
+        <title>Interrupções e chamadas de sistema - AXON-OS</title>
       
     
     
@@ -78,8 +78,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
       
     
     
@@ -101,7 +101,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -110,7 +110,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#interrupcoes-e-syscalls" class="md-skip">
+        <a href="#interrupcoes-e-chamadas-de-sistema" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -145,7 +145,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Interrupções e syscalls
+              Interrupções e chamadas de sistema
             
           </span>
         </div>
@@ -158,7 +158,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Mudar para modo escuro"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Mudar para modo escuro"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Mudar para modo escuro" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -168,7 +168,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Mudar para modo claro"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Mudar para modo claro"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Mudar para modo claro" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -232,7 +232,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/nyfeu/AXON-OS" title="Ir para repositório" class="md-source" data-md-component="source">
+        <a href="https://github.com/RISC-V-Azedinha/AXON-OS" title="Ir para repositório" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -263,7 +263,7 @@
   
     
   
-  Início
+  Introdução
 
       </a>
     </li>
@@ -276,38 +276,16 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../consideracoes/" class="md-tabs__link">
+      <a href="../../primeiros-passos/" class="md-tabs__link">
         
   
   
     
   
-  Considerações
+  Primeiros passos
 
       </a>
     </li>
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../guias/" class="md-tabs__link">
-          
-  
-  
-    
-  
-  Guias
-
-        </a>
-      </li>
-    
   
 
       
@@ -321,13 +299,11 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+        <a href="../visao-geral/" class="md-tabs__link">
           
   
   
-    
-  
-  Arquitetura
+  Arquitetura do kernel
 
         </a>
       </li>
@@ -340,20 +316,36 @@
   
   
   
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../referencia/" class="md-tabs__link">
-          
+    <li class="md-tabs__item">
+      <a href="../../shell/" class="md-tabs__link">
+        
   
   
     
   
-  Referência
+  Shell
 
-        </a>
-      </li>
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../codigo-fonte/" class="md-tabs__link">
+        
+  
+  
     
+  
+  Estrutura do código-fonte
+
+      </a>
+    </li>
   
 
       
@@ -394,7 +386,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/nyfeu/AXON-OS" title="Ir para repositório" class="md-source" data-md-component="source">
+      <a href="https://github.com/RISC-V-Azedinha/AXON-OS" title="Ir para repositório" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -421,7 +413,7 @@
   <span class="md-ellipsis">
     
   
-    Início
+    Introdução
   
 
     
@@ -441,14 +433,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../consideracoes/" class="md-nav__link">
+      <a href="../../primeiros-passos/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Considerações
+    Primeiros passos
   
 
     
@@ -465,225 +457,11 @@
       
   
   
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../guias/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Guias
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Guias
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../guias/instalacao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Instalação do ambiente
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../guias/build-e-execucao/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build e execução
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../guias/upload-fpga/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Upload para a FPGA
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../guias/shell/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Usando o shell
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
   
     
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -700,18 +478,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
     
   
-    Arquitetura
+    Arquitetura do kernel
   
 
     
@@ -719,27 +496,19 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Arquitetura
+    Arquitetura do kernel
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
             
               
                 
@@ -755,35 +524,7 @@
   <span class="md-ellipsis">
     
   
-    Visão geral
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../boot/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Boot
+    Visão geral e inicialização
   
 
     
@@ -811,63 +552,7 @@
   <span class="md-ellipsis">
     
   
-    Escalonador de tarefas
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../memoria/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Gerenciamento de memória
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sistema-arquivos/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sistema de arquivos
+    Tarefas e escalonamento
   
 
     
@@ -904,7 +589,7 @@
   <span class="md-ellipsis">
     
   
-    Interrupções e syscalls
+    Interrupções e chamadas de sistema
   
 
     
@@ -922,7 +607,7 @@
   <span class="md-ellipsis">
     
   
-    Interrupções e syscalls
+    Interrupções e chamadas de sistema
   
 
     
@@ -1083,13 +768,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tabela-de-syscalls" class="md-nav__link">
+  <a href="#chamadas-de-sistema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tabela de syscalls
+        Chamadas de sistema
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Chamadas de sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convencao-de-chamada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenção de chamada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lista-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista completa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_info_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        task_info_t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-implementando-uma-nova-syscall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: implementando uma nova syscall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1109,14 +844,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../hal-drivers/" class="md-nav__link">
+      <a href="../memoria/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    HAL e drivers
+    Gerenciamento de memória
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sistema-arquivos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sistema de arquivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plataformas-drivers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plataformas e drivers
   
 
     
@@ -1143,90 +934,15 @@
   
   
   
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../referencia/" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Referência
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Referência
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../referencia/estrutura-projeto/" class="md-nav__link">
+      <a href="../../shell/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Estrutura do projeto
+    Shell
   
 
     
@@ -1238,95 +954,30 @@
     </li>
   
 
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../referencia/mapa-memoria/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
     
-  
-    Mapa de memória (MMIO)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../referencia/api-syscalls/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tabela de syscalls
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../referencia/comandos-shell/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Comandos do shell
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codigo-fonte/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estrutura do código-fonte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1493,13 +1144,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tabela-de-syscalls" class="md-nav__link">
+  <a href="#chamadas-de-sistema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tabela de syscalls
+        Chamadas de sistema
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Chamadas de sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convencao-de-chamada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenção de chamada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lista-completa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lista completa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task_info_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        task_info_t
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemplo-implementando-uma-nova-syscall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo: implementando uma nova syscall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1520,7 +1221,7 @@
 
 
   
-    <a href="https://github.com/nyfeu/AXON-OS/edit/main/docs/arquitetura/interrupcoes-syscalls.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/RISC-V-Azedinha/AXON-OS/edit/main/docs/arquitetura/interrupcoes-syscalls.md" title="Editar esta página" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1528,7 +1229,7 @@
   
 
 
-<h1 id="interrupcoes-e-syscalls">Interrupções e syscalls<a class="headerlink" href="#interrupcoes-e-syscalls" title="Permanent link">&para;</a></h1>
+<h1 id="interrupcoes-e-chamadas-de-sistema">Interrupções e chamadas de sistema<a class="headerlink" href="#interrupcoes-e-chamadas-de-sistema" title="Permanent link">&para;</a></h1>
 <p>O coração do AXON-OS é um único ponto de entrada para <strong>tudo que interrompe a execução normal de uma tarefa</strong>: interrupções de hardware (timer, periféricos externos) e exceções de software (syscalls, erros). Esse ponto de entrada é dividido em duas metades — uma em Assembly (<code>trap.s</code>) e outra em C (<code>trap_handler</code>, em <code>main.c</code>).</p>
 <h2 id="configuracao-do-vetor-de-trap">Configuração do vetor de trap<a class="headerlink" href="#configuracao-do-vetor-de-trap" title="Permanent link">&para;</a></h2>
 <p>No boot, <code>hal_irq_set_handler(trap_entry)</code> escreve o endereço de <code>trap_entry</code> no CSR <code>mtvec</code>, forçando o <strong>modo DIRECT</strong> (bits 1:0 = <code>00</code>). Isso significa que, independentemente da causa (<code>mcause</code>), a CPU sempre salta para o mesmo endereço — não há vetor de interrupções indexado por causa, como em modos <code>VECTORED</code>. Toda a distinção de causa é feita em software, dentro de <code>trap_handler</code>.</p>
@@ -1545,7 +1246,7 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nf">addi</span><span class="w"> </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="no">CTX_SIZE</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nf">sw</span><span class="w"> </span><span class="no">t0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">(</span><span class="no">sp</span><span class="p">)</span><span class="w">              </span><span class="c1"># salva o SP *original* (antes do addi) no slot x2</span>
 </span></code></pre></div>
-<p>Todos os 31 registradores gerais (exceto <code>sp</code>, tratado à parte) mais <code>mepc</code> são empilhados <strong>na própria pilha da tarefa interrompida</strong>, seguindo exatamente o layout de <code>context_t</code> (veja <a href="../escalonador/#context_t-o-snapshot-da-cpu">Escalonador de tarefas</a>).</p>
+<p>Todos os 31 registradores gerais (exceto <code>sp</code>, tratado à parte) mais <code>mepc</code> são empilhados <strong>na própria pilha da tarefa interrompida</strong>, seguindo exatamente o layout de <code>context_t</code> (veja <a href="../escalonador/#context_t-o-snapshot-da-cpu">Tarefas e escalonamento</a>).</p>
 <h3 id="fase-2-chamar-o-kernel-em-c">Fase 2 — Chamar o kernel em C<a class="headerlink" href="#fase-2-chamar-o-kernel-em-c" title="Permanent link">&para;</a></h3>
 <div class="language-asm highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">csrr</span><span class="w"> </span><span class="no">a0</span><span class="p">,</span><span class="w"> </span><span class="no">mcause</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">csrr</span><span class="w"> </span><span class="no">a1</span><span class="p">,</span><span class="w"> </span><span class="no">mepc</span>
@@ -1554,7 +1255,7 @@
 </span></code></pre></div>
 <p>Os três argumentos batem com a assinatura <code>trap_handler(uint32_t mcause, uint32_t mepc, uint32_t *ctx)</code>. Como <code>sp</code> já aponta para o <code>context_t</code> recém-salvo, o kernel consegue ler os argumentos de syscall diretamente da pilha (via os offsets de <code>a0</code>–<code>a7</code>) e escrever valores de retorno no mesmo lugar.</p>
 <h3 id="fase-3-troca-de-contexto-se-necessario">Fase 3 — Troca de contexto (se necessário)<a class="headerlink" href="#fase-3-troca-de-contexto-se-necessario" title="Permanent link">&para;</a></h3>
-<p>Depois que <code>trap_handler</code> retorna, <code>trap.s</code> compara <code>current_task</code> com <code>next_task</code> (ambas variáveis globais atualizadas por <code>schedule()</code>, veja <a href="../escalonador/#fase-3-marcar-a-troca">Escalonador de tarefas</a>):</p>
+<p>Depois que <code>trap_handler</code> retorna, <code>trap.s</code> compara <code>current_task</code> com <code>next_task</code> (ambas variáveis globais atualizadas por <code>schedule()</code>, veja <a href="../escalonador/#fase-3-marcar-a-troca">Tarefas e escalonamento</a>):</p>
 <ul>
 <li>Se forem iguais (ou <code>next_task</code> for <code>NULL</code>), não há troca — segue para a Fase 4 usando a mesma pilha.</li>
 <li>Se forem diferentes: salva o <code>sp</code> atual dentro do TCB da tarefa antiga (<code>sw sp, 28(t1)</code> — offset calculado manualmente a partir do layout de <code>task_t</code>), atualiza <code>current_task = next_task</code>, e <strong>carrega o <code>sp</code> salvo da nova tarefa</strong> (<code>lw sp, 28(t3)</code>). A partir desse <code>lw</code>, todo acesso à pilha passa a ler/escrever a pilha da <em>outra</em> tarefa.</li>
@@ -1611,7 +1312,7 @@
 </tbody>
 </table>
 <h3 id="excecoes-ecall-sincrona-cause_code-11">Exceções — <code>ecall</code> (síncrona, <code>cause_code == 11</code>)<a class="headerlink" href="#excecoes-ecall-sincrona-cause_code-11" title="Permanent link">&para;</a></h3>
-<p>Uma tarefa "chama" o kernel colocando o número da syscall em <code>a7</code> e argumentos em <code>a0</code>–<code>a5</code>, então executa <code>ecall</code>. O trap handler lê esses valores diretamente do <code>context_t</code> salvo na pilha (ex.: <code>ctx[16]</code> é o slot de <code>a7</code>) e despacha por um <code>switch</code>. Veja a <a href="../../referencia/api-syscalls/">tabela completa de syscalls</a> para a lista e assinaturas.</p>
+<p>Uma tarefa "chama" o kernel colocando o número da syscall em <code>a7</code> e argumentos em <code>a0</code>–<code>a5</code>, então executa <code>ecall</code>. O trap handler lê esses valores diretamente do <code>context_t</code> salvo na pilha (ex.: <code>ctx[16]</code> é o slot de <code>a7</code>) e despacha por um <code>switch</code>. Veja a <a href="#chamadas-de-sistema">tabela completa de syscalls</a> para a lista e assinaturas.</p>
 <div class="admonition danger">
 <p class="admonition-title">Avançar o PC manualmente</p>
 <p>Depois de tratar uma <code>ecall</code>, o kernel faz <code>ctx[31] += 4</code> (o slot de <code>mepc</code>) <strong>antes</strong> de retornar. Se isso não fosse feito, o <code>mret</code> voltaria para o endereço exato da instrução <code>ecall</code>, que seria executada de novo — um laço infinito. <code>4</code> é o tamanho fixo de uma instrução RISC-V não-comprimida.</p>
@@ -1632,8 +1333,193 @@
 <li>O <em>handler</em> da UART (<code>uart_isr</code>, em <code>task_shell.c</code>) lê o caractere recebido e o empurra em um <strong>buffer circular</strong> (<code>cbuf_t</code>, <code>include/util/circular_buffer.h</code>) — a tarefa do shell consome esse buffer de forma assíncrona, sem bloquear a ISR.</li>
 </ul>
 <p>Esse desenho — ISR curta que só empurra dados em uma fila, tarefa consumindo em background — é o padrão clássico para manter o tempo dentro do trap handler mínimo.</p>
-<h2 id="tabela-de-syscalls">Tabela de syscalls<a class="headerlink" href="#tabela-de-syscalls" title="Permanent link">&para;</a></h2>
-<p>A lista completa de syscalls, com assinaturas e descrição de cada uma, está em <a href="../../referencia/api-syscalls/">Referência → Tabela de syscalls</a>.</p>
+<h2 id="chamadas-de-sistema">Chamadas de sistema<a class="headerlink" href="#chamadas-de-sistema" title="Permanent link">&para;</a></h2>
+<p>Todas as syscalls são definidas em <code>include/sys/syscall.h</code>. O mecanismo geral (ABI, como o número e os argumentos viajam até o kernel) está descrito na <a href="#excecoes-ecall-sincrona-cause_code-11">seção sobre <code>ecall</code></a>.</p>
+<h3 id="convencao-de-chamada">Convenção de chamada<a class="headerlink" href="#convencao-de-chamada" title="Permanent link">&para;</a></h3>
+<ul>
+<li>O número da syscall vai no registrador <code>a7</code>.</li>
+<li>Argumentos (até 3, no AXON-OS) vão em <code>a0</code>, <code>a1</code>, <code>a2</code>.</li>
+<li>O valor de retorno (quando houver) volta em <code>a0</code>.</li>
+<li>A instrução <code>ecall</code> dispara a exceção síncrona.</li>
+</ul>
+<p>Cada syscall tem um wrapper <code>static inline</code> correspondente em <code>syscall.h</code>, que esconde o Assembly bruto — é essa função que as tarefas devem chamar.</p>
+<h3 id="lista-completa">Lista completa<a class="headerlink" href="#lista-completa" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Constante</th>
+<th>Wrapper C</th>
+<th>Assinatura de retorno/args</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>SYS_YIELD</code></td>
+<td><code>sys_yield()</code></td>
+<td><code>void</code></td>
+<td>Cede a CPU voluntariamente para a próxima tarefa pronta</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>SYS_WRITE</code></td>
+<td><code>sys_write_char(char c)</code> / <code>sys_puts(const char* s)</code></td>
+<td><code>void</code></td>
+<td>Escreve um caractere (ou string) na UART</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>SYS_SLEEP</code></td>
+<td><code>sys_sleep(uint32_t ms)</code></td>
+<td><code>void</code></td>
+<td>Bloqueia a tarefa atual por <code>ms</code> milissegundos</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>SYS_LOCK</code></td>
+<td><code>int sys_mutex_lock(mutex_t *m)</code></td>
+<td><code>1</code> = obteve a trava, <code>0</code> = já estava travado</td>
+<td>Tenta travar um mutex</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>SYS_UNLOCK</code></td>
+<td><code>sys_mutex_unlock(mutex_t *m)</code></td>
+<td><code>void</code></td>
+<td>Destrava um mutex (só o dono pode)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>SYS_GET_TASKS</code></td>
+<td><code>int sys_get_tasks(task_info_t *buffer, int max_count)</code></td>
+<td>Nº de tarefas copiadas</td>
+<td>Copia informações de todas as tarefas para <code>buffer</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>SYS_PEEK</code></td>
+<td><code>uint32_t sys_peek(uint32_t addr)</code></td>
+<td>Valor lido</td>
+<td>Lê 32 bits de um endereço físico arbitrário</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>SYS_POKE</code></td>
+<td><code>sys_poke(uint32_t addr, uint32_t val)</code></td>
+<td><code>void</code></td>
+<td>Escreve 32 bits em um endereço físico arbitrário</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>SYS_HEAP_INFO</code></td>
+<td><code>sys_heap_info()</code></td>
+<td><code>void</code></td>
+<td>Imprime o mapa completo do heap na UART (<code>kheap_dump</code>)</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>SYS_MALLOC</code></td>
+<td><code>void* sys_malloc(uint32_t size)</code></td>
+<td>Ponteiro alocado ou <code>NULL</code></td>
+<td>Aloca memória no heap do kernel</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>SYS_FREE</code></td>
+<td><code>uint8_t sys_free(void* ptr)</code></td>
+<td><code>0</code> = sucesso, não-zero = erro</td>
+<td>Libera memória alocada com <code>sys_malloc</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>SYS_DEFRAG</code></td>
+<td><code>sys_defrag()</code></td>
+<td><code>void</code></td>
+<td>Funde blocos livres adjacentes no heap</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>SYS_SUSPEND</code></td>
+<td><code>int sys_suspend(uint32_t pid)</code></td>
+<td><code>0</code> = sucesso, <code>-1</code> = erro</td>
+<td>Suspende uma tarefa pelo PID</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>SYS_RESUME</code></td>
+<td><code>int sys_resume(uint32_t pid)</code></td>
+<td><code>0</code> = sucesso, <code>-1</code> = erro</td>
+<td>Retoma uma tarefa suspensa pelo PID</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>SYS_FS_CREATE</code></td>
+<td><code>sys_fs_create(const char *name)</code></td>
+<td><code>0</code> = sucesso, <code>&lt;0</code> = erro</td>
+<td>Cria um arquivo vazio no RamFS</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>SYS_FS_WRITE</code></td>
+<td><code>sys_fs_write(const char *name, const uint8_t *data, uint32_t len)</code></td>
+<td>Bytes escritos ou <code>&lt;0</code></td>
+<td>Sobrescreve o conteúdo de um arquivo</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>SYS_FS_READ</code></td>
+<td><code>sys_fs_read(const char *name, uint8_t *buffer, uint32_t max_len)</code></td>
+<td>Bytes lidos ou <code>&lt;0</code></td>
+<td>Lê o conteúdo de um arquivo</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>SYS_FS_LIST</code></td>
+<td><code>sys_fs_list(char *buffer, uint32_t max_len)</code></td>
+<td><code>0</code></td>
+<td>Lista os arquivos do diretório raiz</td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>SYS_FS_DELETE</code></td>
+<td><code>sys_fs_delete(const char *name)</code></td>
+<td><code>0</code> = sucesso, <code>&lt;0</code> = erro</td>
+<td>Remove um arquivo</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>SYS_FS_FORMAT</code></td>
+<td>(sem wrapper dedicado)</td>
+<td><code>0</code></td>
+<td>Reformata o RamFS</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Syscalls sem wrapper <code>static inline</code> próprio</p>
+<p><code>SYS_FS_CREATE</code>, <code>SYS_FS_WRITE</code>, <code>SYS_FS_READ</code>, <code>SYS_FS_LIST</code> e <code>SYS_FS_DELETE</code> não têm wrapper em <code>syscall.h</code> — eles são implementados diretamente em <code>src/kernel/file_cmds.c</code> (<code>sys_fs_create</code>, <code>sys_fs_write</code>, etc.), próximos aos comandos de shell que os usam, seguindo o mesmo padrão de <code>asm volatile</code> com <code>ecall</code>.</p>
+</div>
+<h3 id="task_info_t"><code>task_info_t</code><a class="headerlink" href="#task_info_t" title="Permanent link">&para;</a></h3>
+<p>Struct usada por <code>sys_get_tasks()</code> para copiar o estado de todas as tarefas de uma vez:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">         </span><span class="c1">// PID (= tid)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">char</span><span class="w">     </span><span class="n">name</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w">       </span><span class="c1">// 0=Ready, 1=Running, 2=Blocked, 3=Suspended</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">priority</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sp</span><span class="p">;</span><span class="w">           </span><span class="c1">// Stack Pointer atual</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">wake_time</span><span class="p">;</span><span class="w">    </span><span class="c1">// Ciclo de mtime para acordar (se Blocked)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span><span class="w"> </span><span class="n">task_info_t</span><span class="p">;</span>
+</span></code></pre></div>
+<p>É o que alimenta o comando de shell <a href="../../shell/#ps"><code>ps</code></a>.</p>
+<h3 id="exemplo-implementando-uma-nova-syscall">Exemplo: implementando uma nova syscall<a class="headerlink" href="#exemplo-implementando-uma-nova-syscall" title="Permanent link">&para;</a></h3>
+<p>Para adicionar uma syscall nova, três lugares precisam ser tocados:</p>
+<ol>
+<li><strong><code>include/sys/syscall.h</code></strong>: adicionar <code>#define SYS_MINHA_SYSCALL &lt;próximo número livre&gt;</code> e, opcionalmente, um wrapper <code>static inline</code> no padrão dos existentes.</li>
+<li><strong><code>src/kernel/main.c</code></strong> (<code>trap_handler</code>): adicionar um <code>case SYS_MINHA_SYSCALL:</code> no <code>switch</code>, lendo argumentos de <code>ctx[9]</code>/<code>ctx[10]</code>/<code>ctx[11]</code> (<code>a0</code>/<code>a1</code>/<code>a2</code>) e escrevendo o retorno em <code>ctx[9]</code> (<code>a0</code>) se aplicável.</li>
+<li>A <strong>função real</strong> que a syscall invoca deve morar no kernel (<code>src/kernel/*.c</code>), nunca em <code>src/apps/</code> ou <code>src/bin/</code> — o handler roda em contexto de trap, com acesso direto às estruturas internas do kernel.</li>
+</ol>
 
 
 
@@ -1671,7 +1557,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
         
           
-          <a href="../sistema-arquivos/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Sistema de arquivos">
+          <a href="../escalonador/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Tarefas e escalonamento">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1681,20 +1567,20 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                Sistema de arquivos
+                Tarefas e escalonamento
               </div>
             </div>
           </a>
         
         
           
-          <a href="../hal-drivers/" class="md-footer__link md-footer__link--next" aria-label="Próximo: HAL e drivers">
+          <a href="../memoria/" class="md-footer__link md-footer__link--next" aria-label="Próximo: Gerenciamento de memória">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Próximo
               </span>
               <div class="md-ellipsis">
-                HAL e drivers
+                Gerenciamento de memória
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1732,7 +1618,7 @@
       
       
     
-    <a href="https://github.com/nyfeu/AXON-OS" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/RISC-V-Azedinha/AXON-OS" target="_blank" rel="noopener" title="github.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
@@ -1753,7 +1639,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide", "content.tooltips", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share", "header.autohide", "content.tooltips", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
